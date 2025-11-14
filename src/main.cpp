@@ -1,7 +1,3 @@
-/******************************************************
- * Campainha do Laboratório via MQTT
- ******************************************************/
-
 #include <WiFi.h>
 #include <PubSubClient.h>
 
