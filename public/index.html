@@ -8,38 +8,26 @@
     <title>Campainha do Laboratório — Mobile</title>
 
     <style>
-        /* mobile-first: projetado para telas de celular em retrato */
+        /* CSS idêntico ao que você usava — mobile-first */
         :root {
             --page-bg: #f5f6f8;
             --accent: #2f3b49;
             --mini-bg: rgba(255, 255, 255, 0.98);
             --gap: 14px;
             --fb-ok: #16a34a;
-            /* verde */
             --fb-err: #ef4444;
-            /* vermelho */
-
-
             --card-radius: 18px;
-            /* mantém coerência com seus cards */
-
-
-
-            /* aumentei estes valores para logos maiores */
             --card-inner-size: 132px;
-            /* antes 98px — tamanho do quadrado branco */
             --card-outer-padding: 14px;
             --card-border-radius: 18px;
             --card-max-width: 220px;
-            /* antes 180px — controla a largura do cartão */
             --shell-padding-h: 18px;
         }
 
-        /* reset */
         * {
             box-sizing: border-box;
             margin: 0;
-            padding: 0
+            padding: 0;
         }
 
         html,
@@ -49,10 +37,9 @@
             background: var(--page-bg);
             -webkit-font-smoothing: antialiased;
             color: #0b1220;
-            -webkit-text-size-adjust: 100%
+            -webkit-text-size-adjust: 100%;
         }
 
-        /* shell que ocupa 100% da viewport horizontal com padding horizontal */
         .shell {
             width: 100%;
             max-width: 920px;
@@ -87,7 +74,6 @@
             padding-top: 6px;
         }
 
-        /* Grid mobile-first: 2 colunas que ocupam 50% da largura menos gap */
         .lab-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -100,7 +86,6 @@
             margin: 10px auto 6px;
         }
 
-        /* cartão externo: largura fluida para encaixar duas colunas no celular */
         .lab-card {
             width: 100%;
             max-width: var(--card-max-width);
@@ -111,9 +96,7 @@
             flex-direction: column;
             align-items: center;
             gap: 10px;
-            box-shadow:
-                0 10px 20px rgba(11, 20, 35, 0.06),
-                0 3px 6px rgba(11, 20, 35, 0.04) inset;
+            box-shadow: 0 10px 20px rgba(11, 20, 35, 0.06), 0 3px 6px rgba(11, 20, 35, 0.04) inset;
             border: 1px solid rgba(16, 24, 40, 0.06);
             cursor: pointer;
             transition: transform .18s cubic-bezier(.2, .9, .2, 1), box-shadow .18s ease, border-color .18s ease;
@@ -123,53 +106,38 @@
             transform-origin: center;
         }
 
-        /* hover: sobe + acentua sombra (efeito "flutuar") */
         .lab-card:hover {
             transform: translateY(-8px) scale(1.01);
-            box-shadow:
-                0 28px 60px rgba(11, 20, 35, 0.12),
-                0 6px 18px rgba(11, 20, 35, 0.06) inset;
+            box-shadow: 0 28px 60px rgba(11, 20, 35, 0.12), 0 6px 18px rgba(11, 20, 35, 0.06) inset;
         }
 
-        /* active / pressed: "aperta" o card (efeito físico) */
         .lab-card:active {
             transform: translateY(-2px) scale(0.997);
-            box-shadow:
-                0 8px 18px rgba(11, 20, 35, 0.06),
-                0 2px 6px rgba(11, 20, 35, 0.03) inset;
+            box-shadow: 0 8px 18px rgba(11, 20, 35, 0.06), 0 2px 6px rgba(11, 20, 35, 0.03) inset;
         }
-
-
 
         .lab-card.offline {
             opacity: .58;
             pointer-events: none;
-            filter: grayscale(.05)
+            filter: grayscale(.05);
         }
 
         .lab-card.busy {
             pointer-events: none;
-            opacity: .85
+            opacity: .85;
         }
 
         .lab-card.ok {
             border-color: var(--fb-ok) !important;
             transform: translateY(-6px) scale(1.01);
-            box-shadow:
-                0 22px 56px rgba(16, 163, 90, 0.08),
-                /* sombra maior para 3D */
-                0 0 10px rgba(22, 163, 74, 0.08) inset;
-            /* opcional — caso queira um contorno fino extra: */
+            box-shadow: 0 22px 56px rgba(16, 163, 90, 0.08), 0 0 10px rgba(22, 163, 74, 0.08) inset;
             outline: none;
         }
-
 
         .lab-card.err {
             border-color: var(--fb-err) !important;
             transform: translateY(-3px) scale(1.005);
-            box-shadow:
-                0 16px 40px rgba(239, 68, 68, 0.08),
-                0 0 8px rgba(239, 68, 68, 0.06) inset;
+            box-shadow: 0 16px 40px rgba(239, 68, 68, 0.08), 0 0 8px rgba(239, 68, 68, 0.06) inset;
             outline: none;
         }
 
@@ -177,18 +145,13 @@
         .lab-card.err:hover {
             transform: none;
             box-shadow: inherit;
-
         }
 
-        /* Opcional: destacar a mini-card (o texto) levemente quando existe sucesso (mais parecido com exemplo) */
         .lab-card.ok .mini-card {
             border-color: rgba(22, 163, 74, 0.08);
             color: var(--accent);
-            /* mantém cor do texto; remova se preferir sem alteração */
         }
 
-
-        /* pseudo-elemento superior — brilho suave (como reflexo no material) */
         .lab-card::before {
             content: "";
             position: absolute;
@@ -220,7 +183,6 @@
             transform-origin: center;
         }
 
-        /* faz o "halo" aparecer sutilmente junto da borda (opcional) */
         .lab-card.ok::after {
             box-shadow: 0 0 18px rgba(22, 163, 74, 0.18);
             opacity: 1;
@@ -231,7 +193,6 @@
             opacity: 1;
         }
 
-        /* placa branca quadrada com logo central */
         .logo-plate {
             width: var(--card-inner-size);
             height: var(--card-inner-size);
@@ -240,9 +201,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow:
-                0 12px 26px rgba(20, 25, 30, 0.06),
-                inset 0 6px 14px rgba(255, 255, 255, 0.7);
+            box-shadow: 0 12px 26px rgba(20, 25, 30, 0.06), inset 0 6px 14px rgba(255, 255, 255, 0.7);
             border: 1px solid rgba(16, 24, 40, 0.04);
             position: relative;
             z-index: 2;
@@ -283,10 +242,8 @@
             transition: opacity .18s ease;
         }
 
-        /* mini-card (nome) sobreposto */
         .mini-card {
             margin-top: -8px;
-            /* sobrepõe a borda inferior da logo-plate */
             background: var(--mini-bg);
             color: var(--accent);
             font-weight: 800;
@@ -309,7 +266,7 @@
         .lab-card:focus-visible {
             outline: 3px solid rgba(30, 103, 214, 0.12);
             outline-offset: 6px;
-            border-radius: 14px
+            border-radius: 14px;
         }
 
         .toast {
@@ -332,10 +289,9 @@
         .toast.show {
             opacity: 1;
             bottom: 26px;
-            pointer-events: auto
+            pointer-events: auto;
         }
 
-        /* telas maiores (phablets) — mantemos 2 colunas mas ajustamos espaçamento e tamanhos */
         @media (min-width: 420px) {
             :root {
                 --card-inner-size: 110px;
@@ -349,8 +305,6 @@
         }
 
         @media (min-width: 540px) {
-
-            /* quando houver espaço extra, centralizamos a grade com largura fixa aproximando imagem de exemplo */
             .shell {
                 padding-left: 28px;
                 padding-right: 28px;
@@ -368,8 +322,7 @@
             }
         }
 
-        /* somente em telas muito estreitas (<320px) passamos para 1 coluna para evitar corte */
-        @media (max-width: 320px) {
+        @media (max-width:320px) {
             .lab-grid {
                 grid-template-columns: 1fr;
                 max-width: 100%;
@@ -406,126 +359,8 @@
 
     <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
-    <script>
-        /* mantive seu JS original */
-        const grid = document.getElementById('grid');
-        const toast = document.getElementById('toast');
-        const COOLDOWN_MS = 3000;
-        const cool = new Map();
-        let token = null;
-
-        const showToast = (msg, ok = true) => {
-            toast.textContent = msg;
-            toast.style.background = ok ? '#10b981' : '#ef4444';
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 1500);
-        };
-
-        const labIdOf = (item) => typeof item === 'string' ? item.toUpperCase() : (item.id || item.code || item.name || '').toUpperCase();
-        const initialsOf = (name) => (name || '').replace(/[^A-Za-z0-9 ]/g, ' ').trim().split(/\s+/).slice(0, 2).map(s => s[0]?.toUpperCase() || '').join('') || 'LB';
-        const labLogoOf = (item) => (typeof item === 'object' && item.logo) ? item.logo : `/logos/${labIdOf(item)}.png`;
-
-        function renderLabs(labs) {
-            const html = (labs || []).map(l => {
-                const id = typeof l === 'string' ? l : (l.id || l.name || '');
-                const name = typeof l === 'string' ? l : (l.name || id);
-                const online = typeof l === 'string' ? true : Boolean(l.online);
-                const logo = labLogoOf({ id });
-                const initials = initialsOf(name);
-                return `
-          <button class="lab-card ${online ? '' : 'offline'}" data-id="${id}" data-name="${name}" aria-label="Tocar campainha de ${name}">
-            <div class="logo-plate" aria-hidden="true">
-              <div class="logo-inner">
-                <img src="${logo}" alt="Logo ${name}" loading="lazy" onerror="this.style.display='none'">
-                <div class="initials">${initials}</div>
-              </div>
-            </div>
-            <div class="mini-card">${name.toUpperCase()}</div>
-            <div class="lab-name" aria-hidden="true">${name.toUpperCase()}</div>
-          </button>
-        `;
-            }).join('');
-            grid.innerHTML = html;
-
-            document.querySelectorAll('.logo-inner img').forEach(img => {
-                img.addEventListener('load', () => {
-                    const initials = img.parentElement.querySelector('.initials');
-                    if (initials) initials.style.opacity = '0';
-                });
-                img.addEventListener('error', () => { /* mantém iniciais visíveis */ });
-                if (img.complete && img.naturalWidth > 0) {
-                    const initials = img.parentElement.querySelector('.initials');
-                    if (initials) initials.style.opacity = '0';
-                }
-            });
-        }
-
-        async function bootstrap() {
-            try {
-                const r = await fetch('/api/bootstrap');
-                const j = await r.json();
-                token = j.token;
-                const labs = (j.labs || []).map(l => typeof l === 'string' ? { id: l, name: l } : l);
-                const qs = new URLSearchParams(location.search);
-                const pre = (qs.get('lab') || '').toUpperCase();
-                if (pre) labs.sort((a, b) => (labIdOf(a) === pre ? -1 : labIdOf(b) === pre ? 1 : 0));
-                renderLabs(labs);
-            } catch (e) {
-                console.error(e);
-                grid.innerHTML = `<p style="grid-column:1/-1;color:#b91c1c;text-align:center">Erro ao carregar laboratórios.</p>`;
-            }
-        }
-
-        async function ringLab(labId, labName, el) {
-            const now = Date.now(); const until = cool.get(labId) || 0;
-            if (now < until) { showToast('Aguarde', false); return; }
-
-            el.classList.add('busy'); el.blur();
-            const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), 7000);
-            try {
-                const r = await fetch('/api/ring', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ lab: labId, token }),
-                    signal: ctrl.signal
-                });
-                const j = await r.json();
-                if (r.ok && j.ok) {
-                    el.classList.add('ok');
-                    if (navigator.vibrate) navigator.vibrate(25);
-                    showToast('Campainha enviada', true);
-                    cool.set(labId, Date.now() + COOLDOWN_MS);
-                    setTimeout(() => el.classList.remove('ok'), 900);
-                } else {
-                    el.classList.add('err');
-                    if (navigator.vibrate) navigator.vibrate([10, 70, 20]);
-                    showToast(j.error || 'Falha ao tocar', false);
-                    setTimeout(() => el.classList.remove('err'), 900);
-                }
-            } catch (e) {
-                const aborted = e?.name === 'AbortError';
-                el.classList.add('err');
-                if (navigator.vibrate) navigator.vibrate([10, 70, 20]);
-                showToast(aborted ? 'Tempo esgotado' : 'Erro de rede', false);
-                setTimeout(() => el.classList.remove('err'), 900);
-            } finally {
-                clearTimeout(t);
-                el.classList.remove('busy');
-            }
-        }
-
-        grid.addEventListener('click', ev => {
-            const btn = ev.target.closest('.lab-card');
-            if (!btn) return;
-            if (btn.classList.contains('offline')) { showToast('Laboratório offline', false); return; }
-            const id = btn.dataset.id; const name = btn.dataset.name || id;
-            ringLab(id, name, btn);
-        });
-
-        window.addEventListener('resize', () => { /* nada especial no momento */ });
-
-        bootstrap();
-    </script>
+    <!-- referência ao JS do cliente (servido pelo server.js) -->
+    <script src="/js/app.js"></script>
 </body>
 
 </html>
