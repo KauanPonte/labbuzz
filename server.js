@@ -268,7 +268,13 @@ const CLIENT_JS = `
 
   async function ringLab(labId, labName, el) {
     const nowTs = Date.now(); const until = cool.get(labId) || 0;
-    if (nowTs < until) { showToast('Aguarde', false); return; }
+    if (nowTs < until) {
+      el.classList.add('err');
+      if (navigator.vibrate) navigator.vibrate([10, 70, 20]);
+      showToast('Campainha em cooldown, aguarde um pouco.', false);
+      setTimeout(() => el.classList.remove('err'), 900);
+      return;
+    }
 
     el.classList.add('busy'); el.blur();
     const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), 7000);
@@ -304,12 +310,23 @@ const CLIENT_JS = `
     }
   }
 
-  if (typeof document !== 'undefined') {
+   if (typeof document !== 'undefined') {
     document.addEventListener('click', ev => {
       const btn = ev.target.closest ? ev.target.closest('.lab-card') : null;
       if (!btn) return;
-      if (btn.classList.contains('offline')) { showToast('Laboratório offline', false); return; }
-      const id = btn.dataset.id; const name = btn.dataset.name || id;
+
+      // 🔻 Lab OFFLINE: pisca borda vermelha e mostra aviso
+      if (btn.classList.contains('offline')) {
+       const id = btn.dataset.id;
+       const name = btn.dataset.name || id;
+       btn.classList.add('err');
+       showToast('Laboratório ' + name + ' está offline.', false);
+       setTimeout(() => btn.classList.remove('err'), 900);
+       return;
+      }
+
+      const id = btn.dataset.id;
+      const name = btn.dataset.name || id;
       ringLab(id, name, btn);
     });
 

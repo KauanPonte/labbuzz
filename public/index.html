@@ -117,10 +117,23 @@
         }
 
         .lab-card.offline {
-            opacity: .58;
-            pointer-events: none;
-            filter: grayscale(.05);
+            opacity: .65;
+            filter: grayscale(.1);
+            cursor: not-allowed;
+            /* ainda dá pra clicar, mas visualmente mostra que tá “desativado” */
         }
+
+        /* Deixa só a imagem da logo em preto e branco quando o lab está offline */
+        .lab-card.offline .logo-inner img {
+            filter: grayscale(1);
+
+        }
+
+        /* Se quiser que o quadradinho todo da logo fique P&B (incluindo iniciais) */
+        .lab-card.offline .logo-inner {
+            filter: grayscale(1);
+        }
+
 
         .lab-card.busy {
             pointer-events: none;
@@ -284,6 +297,7 @@
             transition: all .18s ease;
             z-index: 999;
             font-size: 14px;
+            text-align: center;
         }
 
         .toast.show {
